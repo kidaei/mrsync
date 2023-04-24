@@ -1,16 +1,31 @@
 import os
 import sys
-import re
-
-# Feature to add: Activate Regex i.e: ./mrsync *.py --list-only ....... etc
 
 
 def copyFile(files, dst):
     for f in files:
-        f =
-        print(f)
+        f2 = f.split("/")[1:]
+        dirPath = f2[:-1]
+        if dirPath != []:
+            # TODO : in future we the server should send to client query how has the forme of (makedirs,dirPath).
+            # cree dir1/dir2 à l' terieur du dst
+            os.makedirs(dst+"/"+"/".join(dirPath), exist_ok=True)
+        fd = os.open(f, os.O_RDONLY)  # ouvre en src
+        # oure en ecriture en dst
+        fd2 = os.open(dst + "/"+"/".join(f2), os.O_WRONLY)
 
-    ...
+        while True:  # tant qu'on a pas rejoint la fin du file
+
+            cnt = os.read(fd, 1024)
+            if len(cnt) == 0:
+                break
+            os.write(fd2, cnt)
+            # TODO : envoyéé cnt au client
+
+        os.close(fd)
+        os.close(fd2)
+
+        print(f)
 
 
 def pathTolist(path, isRecursive, dst, copy):
@@ -47,6 +62,5 @@ def pathTolist(path, isRecursive, dst, copy):
 
     if copy:
         copyFile(files, dst)
-        # for f in files:
 
     return filesDir
