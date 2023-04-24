@@ -13,7 +13,8 @@ python3 ./mrsync.py -r .
 ## step 1 : done.  
 To be checked:   
 1. ./mrsync *.py --list-only  
-2. add the permession whit os.stat   
+2. add the permession whit os.stat  
+3. add the time with os.path.getmtime(path) 
 ```py
 print()
 ```

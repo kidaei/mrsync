@@ -2,16 +2,14 @@ from filelist import *
 
 
 def runSender(args):
+
     srcPath = args.SRC
 
     if srcPath == "*":
         srcPath = "."
     dstPath = args.DST
-    if args.listOnly:
-        if args.recursive:
-            pathTolist(srcPath, True, dstPath)
-        else:
-            pathTolist(srcPath, False, dstPath)
+
+    pathTolist(args)
     if args.verbosity >= 2:
         print("running : ", __file__)
         print("the src file is : ", srcPath)

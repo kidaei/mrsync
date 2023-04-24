@@ -9,11 +9,11 @@ def copyFile(files, dst):
         if dirPath != []:
             # TODO : in future we the server should send to client query how has the forme of (makedirs,dirPath).
             # cree dir1/dir2 à l' terieur du dst
-            os.makedirs(dst+"/"+"/".join(dirPath), exist_ok=True)
-        fd = os.open(f, os.O_RDONLY)  # ouvre en src
+            os.makedirs(dst+"/".join(dirPath), exist_ok=True)
+        fd = open(f, "r")  # ouvre en src
         # oure en ecriture en dst
-        fd2 = os.open(dst + "/"+"/".join(f2), os.O_WRONLY)
-
+        fd2 = open(dst + "/".join(f2), "w")
+        '''
         while True:  # tant qu'on a pas rejoint la fin du file
 
             cnt = os.read(fd, 1024)
@@ -21,26 +21,28 @@ def copyFile(files, dst):
                 break
             os.write(fd2, cnt)
             # TODO : envoyéé cnt au client
-
-        os.close(fd)
-        os.close(fd2)
+'''
+        cnt = fd.read()
+        fd2.write(cnt)
+        fd.close()
+        fd2.close()
 
         print(f)
 
 
-def pathTolist(path, isRecursive, dst, copy):
+def pathTolist(args):
 
-    if "*" in path:
+    if "*" == args.SRC:
 
-        path = "."
+        args.SRC = "."
 
-    if not os.path.exists(path):
+    if not os.path.exists(args.SRC):
         raise Exception("Wrong source path")
     filesDir = []
     files = []
-    if isRecursive:
+    if args.recursive:
         # r=root, d=directories, f = files
-        for r, d, f in os.walk(path):
+        for r, d, f in os.walk(args.SRC):
             for file in f:
                 files.append(os.path.join(r, file))
                 filesDir.append(os.path.join(r, file))
@@ -48,19 +50,19 @@ def pathTolist(path, isRecursive, dst, copy):
                 filesDir.append(os.path.join(r, directory))
     else:
         # get the list of all files and directories in the specified directory
-        dir_list = os.listdir(path)
+        dir_list = os.listdir(args.SRC)
         # print the list of all files and directories
         for file in dir_list:
-            if path[-1] == "/":
-                filesDir.append(path+file)
+            if args.SRC[-1] == "/":
+                filesDir.append(args.SRC+file)
             else:
-                files.append(path+"/"+file)
-                filesDir.append(path+"/"+file)
+                files.append(args.SRC+"/"+file)
+                filesDir.append(args.SRC+"/"+file)
 
     for f in filesDir:
         print(f)
 
-    if copy:
-        copyFile(files, dst)
+    if args.DST != None:
+        copyFile(files, args.DST)
 
     return filesDir
