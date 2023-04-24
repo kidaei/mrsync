@@ -1,0 +1,16 @@
+to test you can run this : 
+-----with chibong----(#!/user/bin/python3)(#!/bin/python)
+./mrsync.py --list-only . DST
+./mrsync.py src
+./mrsync.py src -r
+-----without chibong------
+python3 ./mrsync.py --list-only . DST/
+python3 ./mrsync.py -r .
+
+
+step 1 : done.
+
+
+--------------
+To be checked: 
+./mrsync *.py --list-only
