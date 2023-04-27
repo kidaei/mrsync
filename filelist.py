@@ -12,16 +12,7 @@ def copyFile(files, dst):
             os.makedirs(dst+"/".join(dirPath), exist_ok=True)
         fd = open(f, "r")  # ouvre en src
         # oure en ecriture en dst
-        fd2 = open(dst + "/".join(f2), "w")
-        '''
-        while True:  # tant qu'on a pas rejoint la fin du file
-
-            cnt = os.read(fd, 1024)
-            if len(cnt) == 0:
-                break
-            os.write(fd2, cnt)
-            # TODO : envoyéé cnt au client
-'''
+        fd2 = open(dst + "/".join(f2), "w")  # pas besoin aprés
         cnt = fd.read()
         fd2.write(cnt)
         fd.close()
