@@ -1,5 +1,6 @@
 import os
 import sys
+import datetime
 
 
 def copyFile(files, dst):
@@ -51,7 +52,23 @@ def pathTolist(args):
                 filesDir.append(args.SRC+"/"+file)
 
     for f in filesDir:
+        stats = os.stat(f)
+        mod_time = datetime.datetime.fromtimestamp(
+            stats.st_mtime).strftime('%Y/%m/%d %H:%M:%S')
+
+        permissions = ''
+        permissions += 'r' if (stats.st_mode & 0o400) else '-'
+        permissions += 'w' if (stats.st_mode & 0o200) else '-'
+        permissions += 'x' if (stats.st_mode & 0o100) else '-'
+        permissions += 'r' if (stats.st_mode & 0o040) else '-'
+        permissions += 'w' if (stats.st_mode & 0o020) else '-'
+        permissions += 'x' if (stats.st_mode & 0o010) else '-'
+        permissions += 'r' if (stats.st_mode & 0o004) else '-'
+        permissions += 'w' if (stats.st_mode & 0o002) else '-'
+        permissions += 'x' if (stats.st_mode & 0o001) else '-'
         print(f)
+        print("-" if os.path.isfile(f) else "d", ' '.join([permissions, "    ",
+                                                           str(stats.st_size), mod_time, f]), sep="")
 
     if args.DST != None:
         copyFile(files, args.DST)

@@ -1,8 +1,6 @@
 #!/usr/bin/python3
-from sender import *
 from options import args
-print("rr")
-
+from sender import *
 
 if not args.DST:
     # Activate list-only in case of 1 argument:
