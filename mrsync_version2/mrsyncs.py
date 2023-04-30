@@ -6,7 +6,14 @@ import os
 import serve
 import receve
 import generat
+import options
 
 
 def mrsync(src_dir, dest_dir):
-    pid = serve.launch
+    print(src_dir, dest_dir)
+    pid = serve.server()
+
+
+if __name__ == "__main__":
+    print("hello")
+    mrsync(options.args.SRC, options.args.DST)

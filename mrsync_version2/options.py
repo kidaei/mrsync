@@ -13,5 +13,3 @@ parser.add_argument("--list-only", dest="listOnly", action="store_true",
                     help="rsync files recursevly", default=True)
 
 args = parser.parse_args()
-
-print(args.SRC)

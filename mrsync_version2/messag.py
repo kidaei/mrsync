@@ -4,9 +4,13 @@ import os
 import pickle
 
 
-def send(fd, tag, v):
+def send(fd, tag, cnt):
+    '''
     msg = pickle.dumps((tag, v))
-    return os.write(fd, (len(msg)).to_bytes(3, 'big') + msg)
+    print(msg)
+    return fd.write(((len(msg)).to_bytes(3, 'big') + msg).decode())
+    '''
+    fd.write(tag+"\n"+cnt)
 
 
 def receive(fd):

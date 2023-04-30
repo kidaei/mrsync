@@ -1,6 +1,7 @@
 import os
 import sys
 import datetime
+import messag
 
 
 def copyFile(files, dst):
@@ -22,7 +23,7 @@ def copyFile(files, dst):
         print(f)
 
 
-def pathTolist(args):
+def pathTolist(args, fd):
 
     if "*" == args.SRC:
 
@@ -66,9 +67,11 @@ def pathTolist(args):
             permissions += 'r' if (stats.st_mode & 0o004) else '-'
             permissions += 'w' if (stats.st_mode & 0o002) else '-'
             permissions += 'x' if (stats.st_mode & 0o001) else '-'
-            print(f)
-            print("-" if os.path.isfile(f) else "d", ' '.join([permissions, "    ",
-                                                               str(stats.st_size), mod_time, f]), sep="")
+
+            cnt = (("-" if os.path.isfile(f) else "d") + ' '.join([permissions, "    ",
+                                                                   str(stats.st_size), mod_time, f]))
+            # messag.send(fd, "PRINT", f+"\n" + cnt)
+            print(f+"\n" + cnt)
 
     if args.DST != None:
         copyFile(files, args.DST)

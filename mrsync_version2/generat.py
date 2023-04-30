@@ -2,6 +2,8 @@
 
 import os
 import messag
+import options
+import filelist
 
 
 def generator(dest_dir, sender_pid, files):
@@ -19,3 +21,28 @@ def compare_lists(dest_dir, sender_pid, files):
     remote_files = os.listdir(dest_dir)
     if set(files) != set(remote_files):
         generator(dest_dir, sender_pid, files)
+
+
+def query_managment(query, fd):
+    tag, cnt = query.split("\n", 1)
+    print("tag:", tag, "cnt:", cnt)
+    if tag == "ARGS":
+        args = options.parser.parse_args(cnt.split(" "))
+        if not args.DST:
+            # Activate list-only in case of 1 argument:
+            args.listOnly = True
+
+        srcPath = args.SRC
+
+        if srcPath == "*":
+            srcPath = "."
+        dstPath = args.DST
+
+        filelist.pathTolist(args, fd)
+        if args.verbosity >= 2:
+            print("running : ", __file__)
+            print("the src file is : ", srcPath)
+        elif args.verbosity >= 1:
+            print('the src file is : ', srcPath)
+    elif tag == "PRINT":
+        print(cnt)
