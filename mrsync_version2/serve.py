@@ -27,6 +27,6 @@ def server():
         fdr = os.fdopen(r, 'r')
         # fdw = os.fdopen(w1, 'w')
         cnt = fdr.read()
-        print(cnt)
+
         generat.query_managment(cnt, None)
         return pid

@@ -25,7 +25,6 @@ def compare_lists(dest_dir, sender_pid, files):
 
 def query_managment(query, fd):
     tag, cnt = query.split("\n", 1)
-    print("tag:", tag, "cnt:", cnt)
     if tag == "ARGS":
         args = options.parser.parse_args(cnt.split(" "))
         if not args.DST:

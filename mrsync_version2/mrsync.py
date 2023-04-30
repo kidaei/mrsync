@@ -10,10 +10,9 @@ import options
 
 
 def mrsync(src_dir, dest_dir):
-    print(src_dir, dest_dir)
+
     pid = serve.server()
 
 
 if __name__ == "__main__":
-    print("hello")
     mrsync(options.args.SRC, options.args.DST)
