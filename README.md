@@ -40,10 +40,12 @@ We added this code to arrive is execute this command
 # STEP2 
 to test you can run this  
 ./mrsync.py -r SRC/ DST/
+./mrsync.py * DST/
 
-## step 2 :unreachable code
+## step 2 :unreachable code(it worke if we comment the line 15 , 16,25, 26, 30, 31 in serveur.py but in this case we have communication by one pipe )
 -->
 We tried to implement the tubes between client and server to copy the files from a source to a destination but But we could not solve the probleme
+it could worke if 
 
 # STEP3
 To be done 

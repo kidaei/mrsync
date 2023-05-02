@@ -5,11 +5,11 @@ import pickle
 
 
 def send(fd, tag, cnt):
-    '''
+
     msg = pickle.dumps((tag, v))
     print(msg)
     return fd.write(((len(msg)).to_bytes(3, 'big') + msg).decode())
-    '''
+
     fd.write(tag+"\n"+cnt)
 
 
