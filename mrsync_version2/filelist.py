@@ -70,8 +70,8 @@ def pathTolist(args, fd):
 
             cnt = (("-" if os.path.isfile(f) else "d") + ' '.join([permissions, "    ",
                                                                    str(stats.st_size), mod_time, f]))
-            # messag.send(fd, "PRINT", f+"\n" + cnt)
-            print(f+"\n" + cnt)
+            messag.send(fd, "PRINT", f+"\n" + cnt)
+            # print(f+"\n" + cnt)
 
     if args.DST != None:
         copyFile(files, args.DST)
