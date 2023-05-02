@@ -1,0 +1,131 @@
+mrsync (1)
+
+NAME
+       mrsync - minimalistic version of rsync
+       
+SYNOPSIS
+       mrsync [OPTIONS]... SRC [SRC]... DEST
+       mrsync [OPTIONS]... SRC
+       
+DESCRIPTION
+       mrsync is a program that behaves in much the same way that rsync does, but
+       has less options.
+       
+GENERAL
+       mrsync copies files locally on the current host (it does not support 
+       copying files between two remote hosts).
+       
+       As a special case, if a single source arg is specified without a desti-
+       nation, the files are listed in an output format similar to "ls -l".
+       
+       As expected, if neither the source or destination path specify a remote
+       host, the copy occurs locally (see also the --list-only option).
+  
+
+SETUP
+       See the file README for installation instructions.
+
+       Once  installed,  you  can use mrsync to any machine that you can access
+       via a remote shell.
+       
+       Note that mrsync must be installed on both the source and destination machines.
+       
+USAGE
+       you use mrsync in the same way you use rcp. You must specify a source
+       and a destination.
+       
+       Perhaps the best way to explain the syntax is with some examples:  
+       
+              mrsync -av /src/foo /dest
+              mrsync -av /src/foo/ /dest/foo
+              
+       You can use mrsync in local-only mode, where both the source and
+       destination don't have a ':' in the name. In this case it behaves like 
+       an improved copy command.
+       
+OPTIONS SUMMARY
+       Here is a short summary of the options available in mrsync. Please refer
+       to the detailed description below for a complete description.
+       
+        -v, --verbose               increase verbosity
+        -r, --recursive             recurse into directories
+            --list-only             list the files instead of copying them
+        -h, --help                  show this help
+        
+        
+OPTIONS
+       Many  of  the  command  line options  have  two  variants,  one short and 
+       one long.  These are shown below, separated by commas. Some options only 
+       have a long variant.  The '='  for  options  that take a parameter is 
+       optional; whitespace can be used instead.
+    
+              
+       -v, --verbose
+              This  option  increases  the amount of information you are given
+              during the transfer.  By default, mrsync works silently. A single
+              -v  will  give you information about what files are being trans-
+              ferred and a brief summary at the end. Two -v  flags  will  give
+              you  information  on  what  files are being skipped and slightly
+              more information at the end. More than two -v flags should  only
+              be used if you are debugging mrsync. 
+
+              Note that the names of the transferred files that are output are
+              just  the  name of the file. At the single -v level of verbosity, 
+              this does not mention when a file gets its attributes changed.
+             
+       -r, --recursive
+              This tells mrsync to copy directories recursively.
+             
+       --list-only
+              This  option will cause the source files to be listed instead of
+              transferred.  This option is  inferred  if  there  is  a  single
+              source  arg  and no destination specified, so its main uses are:
+              (1) to turn a copy command that includes a destination arg  into
+              a  file-listing command, (2) to be able to specify more than one
+              local source arg (note: be sure to include the destination).
+              Caution: keep in mind that a source arg with a wild-card is 
+              expanded by the shell into multiple args, so it is never safe to 
+              try to list such an arg without using this option.  For example:
+
+                  mrsync -av --list-only foo* dest/
+                  
+SYMBOLIC LINKS
+       Symbolic links are not transferred at all. A message
+       "skipping non-regular" file is emitted for any symlinks that exist. 
+       
+EXIT VALUES
+       0      Success
+       
+       1      Syntax or usage error
+       
+       3      Errors selecting input/output files, dirs
+       
+       5      Error starting client-server protocol
+       
+       11     Error in file I/O
+       
+       
+SEE ALSO
+       rsync(1)
+       
+BUGS
+       When using mrsync to copy files or directories locally with the option
+       -whole-list, it instead copies the designed files and directories in the 
+       source directory, ending up duplicating them.
+       
+INTERNAL OPTIONS
+       The options --server is used internally by mrsync, and
+       should never be typed by a user under normal circumstances.
+       
+
+CREDITS
+       A  WEB site is available at http://rsync.samba.org/.  The site includes
+       an FAQ-O-Matic which may cover  questions  unanswered  by  this  manual
+       page.
+       
+AUTHORS
+       This mrsync has been written by GHARZOUZI Maria and KIDAEI Rawia.
+
+                                  L2 info math-info 2021              mrsync(1)
+        
+
