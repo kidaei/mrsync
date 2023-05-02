@@ -2,7 +2,7 @@
 nom et prenom : KIdaei rawia
                 GHARZOUZI Maria
 
-# general:
+# mrsync:
 We decided to put the code on 2 versions because we could not make the code work at step 2 completely 
 mrsync_version1:  the code for step 1 that works well 
 mrsync_version2:  the code for step 1+2 that does not work 
